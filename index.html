@@ -433,86 +433,129 @@ Error generating stack: `+o.message+`
 
        @page {
           size: A4 landscape;
-          margin: 6mm;
+          margin: 5mm;
         }
         @media print {
           html, body {
-            width: 297mm !important;
+            background: #fff !important;
+            background-color: #fff !important;
+            width: 100% !important;
             height: auto !important;
-            min-height: 210mm;
             margin: 0 !important;
             padding: 0 !important;
             overflow: visible !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          body {
-            zoom: 0.65;
-          }
-          .no-print { display:none !important; }
-          .container, .wrapper, main {
+          body > div, .main-container, .container, .wrapper, #app, #root {
+            background: #fff !important;
+            background-color: #fff !important;
             width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
+            box-shadow: none !important;
+          }
+          /* Kill outer gray bg #f5f5f0 and white spaces */
+          div[class*="bg-[#f5f5f0]"], .min-h-screen, .screen-outer > div {
+            background: #fff !important;
+            background-color: #fff !important;
+          }
+          .no-print { display:none !important; }
+          .grading-section, .grading-chart, #gradingChart, .grade-chart-container, .grade-charts-container, .grade-box, .grade-box-header {
+            display:none !important;
+          }
+          .header-green, .footer-green, .top-header, .footer-credit {
+            width: 100% !important;
+            margin: 0 !important;
           }
           .screen-outer {
             width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
+            background: #fff !important;
           }
-          .table-scroll-wrap, .table-wrapper {
+          .table-scroll-wrap, .table-wrapper, .table-container {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
             overflow: visible !important;
-            width: 100% !important;
-            max-width: 100% !important;
+            background: #fff !important;
           }
-          table.cce-main-table {
+          table.cce-main-table, table {
             width: 100% !important;
             max-width: 100% !important;
-            table-layout: auto !important;
-            font-size: 8px !important;
+            margin: 0 auto !important;
+            table-layout: fixed !important;
             border-collapse: collapse !important;
-            transform: scale(1);
-            transform-origin: top right;
+            transform: none !important;
+            zoom: 1 !important;
           }
-          table { page-break-inside:auto; }
-          tr { page-break-inside:avoid; }
+          /* Print name column 3.5cm to fit A4 landscape */
+          table.cce-main-table th:nth-child(2), table.cce-main-table td:nth-child(2),
+          th:nth-child(2), td:nth-child(2) {
+            width: 3.5cm !important;
+            min-width: 3.5cm !important;
+            max-width: 3.5cm !important;
+          }
           th, td {
-            font-size: 7px !important;
-            padding: 2px 1px !important;
+            padding: 3px 2px !important;
+            font-size: 9px !important;
             white-space: nowrap !important;
             line-height: 1.2 !important;
           }
-          th:nth-child(2), td:nth-child(2) {
-            min-width: 2.5cm !important;
-            max-width: 2.5cm !important;
-            width: 2.5cm !important;
-            font-size: 8px !important;
+          /* Keep row heights readable in print */
+          thead tr:nth-child(1), thead tr:nth-child(2) {
+            height: 28px !important;
+            min-height: 28px !important;
+            line-height: 28px !important;
           }
-          .grading-section {
-            display: none !important;
-          }
-          .grading-chart, #gradingChart, .grade-chart-container, .grade-charts-container, .grade-box, .grade-box-header {
-            display: none !important;
+          tbody tr, tbody td {
+            height: auto !important;
+            min-height: 22px !important;
+            line-height: 1.2 !important;
           }
           .pct-cell-inner, .grade-cell-inner, .sem-cell-inner, .total-cell-inner {
             height: auto !important;
-            min-height: 18px !important;
-            font-size: 7px !important;
+            min-height: 20px !important;
+            max-height: none !important;
+            font-size: 9px !important;
             line-height: 1.2 !important;
           }
           input.marks-input, .name-input {
             border: none !important;
             background: transparent !important;
             box-shadow: none !important;
-            font-size: 7px !important;
+            font-size: 9px !important;
             height: auto !important;
-            min-height: 16px !important;
+            min-height: 18px !important;
+            text-align: center !important;
+          }
+          /* Remove light gray empty background from screenshot */
+          .bg-[#f5f5f0], body.bg-[#f5f5f0], .bg-[#eeeeee].buttons-bar {
+            background: #fff !important;
+            background-color: #fff !important;
+          }
+          /* keep filter total box white only in print - not table cells */
+          .filter-total-box, .top-filter-container, .top-filter-row {
+            background: #fff !important;
+          }
+          /* Keep table colors but ensure print exact */
+          th, td, .fa-header, .sa-header, .sem-header, .total-header,
+          .fa-sub-marks, .fa-sub-weight, .fa-sub-grade,
+          .sa-sub-marks, .sa-sub-weight, .sa-sub-grade,
+          .sem-sub-total, .sem-sub-grade, .total-sub-total, .total-sub-grade,
+          td.pct-cell, td.grade-cell, td.sem-cell, td.sem-grade-cell, td.total-cell, td.marks-cell, td.name-cell, td.sl-cell {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
           ::-webkit-scrollbar { display:none !important; }
           * { scrollbar-width:none !important; -ms-overflow-style:none !important; }
           .delete-btn { display:none !important; }
+          table { page-break-inside:auto; }
+          tr { page-break-inside:avoid; page-break-after:auto; }
         }
      `}),s("div",{className:"screen-outer",children:T("div",{className:"w-full py-3",children:[h&&s("div",{className:"fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[#0f5132] text-white px-5 py-2 rounded-md text-[13px] shadow-lg no-print",children:h}),s("div",{className:"no-print flex justify-end mb-1",children:L?T("div",{className:"flex items-center gap-1.5 bg-[#e8f5e9] border border-[#2e7d32]/30 text-[#2e7d32] px-3 py-1 rounded-full text-[12px] font-bold shadow-sm",children:[s("span",{className:"text-[14px] leading-none",children:"✓"}),s("span",{children:"خودکار محفوظ"}),s("span",{className:"font-sans text-[11px] opacity-80",dir:"ltr",children:L})]}):s("div",{className:"text-[11px] text-gray-400 font-bold",children:"محفوظ کرنے کی تیاری..."})}),S&&s("div",{className:"fixed inset-0 z-[100] flex items-center justify-center popup-overlay bg-black/40 px-4 no-print",onClick:Bu,children:s("div",{dir:"rtl",onClick:(y)=>y.stopPropagation(),className:"bg-white border-2 border-[#d32f2f] rounded-[8px] shadow-[0_12px_32px_rgba(0,0,0,0.25)] w-full max-w-[380px] p-5 text-center",children:T("div",{className:"flex flex-col items-center gap-2",children:[s("div",{className:"w-12 h-12 rounded-full bg-[#ffebee] border border-[#d32f2f] flex items-center justify-center text-[26px]",children:"⚠️"}),s("h3",{className:"text-[18px] font-bold text-[#d32f2f]",children:"انتباہ"}),s("p",{className:"text-[16px] font-bold text-[#222] mt-1",children:v}),s("p",{className:"text-[11px] text-[#666] font-sans mt-1",dir:"ltr",children:"FA max 20 | SA max 50 | Min 0"}),s("button",{onClick:Bu,className:"mt-4 bg-[#0f5132] text-white px-8 py-[6px] text-[14px] rounded-[5px] font-bold",children:"ٹھیک ہے"})]})})}),c&&s("div",{className:"fixed inset-0 z-[110] flex items-center justify-center popup-overlay bg-black/50 px-4 no-print",onClick:Wu,children:s("div",{dir:"rtl",onClick:(y)=>y.stopPropagation(),className:"bg-white border-2 border-[#d32f2f] rounded-[10px] shadow-[0_16px_40px_rgba(0,0,0,0.35)] w-full max-w-[420px] p-6 text-center",children:T("div",{className:"flex flex-col items-center gap-3",children:[s("div",{className:"w-14 h-14 rounded-full bg-[#ffebee] border-2 border-[#d32f2f] flex items-center justify-center text-[28px]",children:"⚠️"}),s("h3",{className:"text-[20px] font-bold text-[#d32f2f]",children:"انتباہ"}),T("p",{className:"text-[16px] font-bold text-[#222] leading-[1.8] mt-1",children:["کیا آپ واقعی تمام نمبرات کو حذف کرنا چاہتے ہیں؟",s("br",{}),s("span",{className:"text-[14px] font-normal text-[#555]",children:"یہ عمل واپس نہیں ہوگا۔"})]}),T("div",{className:"flex items-center gap-3 mt-5 w-full justify-center",children:[s("button",{onClick:Df,className:"bg-[#c62828] text-white px-6 py-2 text-[14px] rounded-[5px] font-bold min-w-[120px]",children:"ہاں، حذف کریں"}),s("button",{onClick:Wu,className:"bg-[#2e7d32] text-white px-6 py-2 text-[14px] rounded-[5px] font-bold min-w-[80px]",children:"نہیں"})]})]})})}),w&&z&&s("div",{className:"fixed inset-0 z-[110] flex items-center justify-center popup-overlay bg-black/50 px-4 no-print",onClick:$u,children:s("div",{dir:"rtl",onClick:(y)=>y.stopPropagation(),className:"bg-white border-2 border-[#d32f2f] rounded-[10px] shadow-[0_16px_40px_rgba(0,0,0,0.35)] w-full max-w-[420px] p-6 text-center",children:T("div",{className:"flex flex-col items-center gap-3",children:[s("div",{className:"w-14 h-14 rounded-full bg-[#ffebee] border-2 border-[#d32f2f] flex items-center justify-center text-[28px]",children:"⚠️"}),s("h3",{className:"text-[20px] font-bold text-[#d32f2f]",children:"انتباہ"}),T("p",{className:"text-[16px] font-bold text-[#222] leading-[1.8] mt-1",children:["کیا آپ واقعی طالب علم ",T("span",{className:"text-[#0f5132]",children:[z.name," (#",z.id,")"]})," کو حذف کرنا چاہتے ہیں؟",s("br",{}),s("span",{className:"text-[14px] font-normal text-[#555]",children:"نمبر شمار دوبارہ ترتیب دیا جائے گا۔"})]}),T("div",{className:"flex items-center gap-3 mt-5 w-full justify-center",children:[s("button",{onClick:Ff,className:"bg-[#c62828] text-white px-6 py-2 text-[14px] rounded-[5px] font-bold min-w-[120px]",children:"ہاں، حذف کریں"}),s("button",{onClick:$u,className:"bg-[#2e7d32] text-white px-6 py-2 text-[14px] rounded-[5px] font-bold min-w-[80px]",children:"نہیں"})]})]})})}),s("div",{className:"bg-[#0f5132] text-white text-center py-[10px] px-3 border border-[#0f5132] shadow-sm w-full",children:s("h1",{className:"text-[18px] md:text-[22px] font-bold leading-[1.5] tracking-wide",children:"مسلسل اور جامع تشخیص [CCE] (جماعت 1 تا 5) / Continuous and Comprehensive Evaluation [CCE] (Class 1-5)"})}),s("div",{className:"bg-white border-x border-b border-[#0f5132] px-2 md:px-3 py-2.5 w-full top-filter-container",style:{overflow:"visible",position:"relative",zIndex:40},children:T("div",{className:"top-filter-row flex flex-wrap lg:flex-nowrap justify-start lg:justify-between items-stretch gap-2 w-full",children:[T("div",{className:"flex items-center gap-2 flex-1 md:flex-none",children:[s("label",{className:"whitespace-nowrap",children:"اسکول:"}),s("input",{value:e,onChange:(y)=>n(y.target.value),className:"filter-field",style:{width:"7cm"},placeholder:"اسکول کا نام"})]}),T("div",{className:"flex items-center gap-2",children:[s("label",{className:"whitespace-nowrap",children:"جماعت:"}),T("select",{value:t,onChange:(y)=>r(y.target.value),className:"filter-field",style:{width:"5cm",minWidth:"120px",maxWidth:"180px",height:"44px",fontSize:"18px",fontWeight:800},children:[s("option",{children:"1"}),s("option",{children:"2"}),s("option",{children:"3"}),s("option",{children:"4"}),s("option",{children:"5"})]})]}),T("div",{className:"flex items-center gap-2 subject-wrapper",style:{position:"relative",zIndex:9999,overflow:"visible"},children:[s("label",{className:"whitespace-nowrap",children:"مضمون:"}),T("select",{value:l,onChange:(y)=>o(y.target.value),className:"filter-field subject-field",style:{width:"4cm",position:"relative",zIndex:9999,top:0},children:[s("option",{value:"Urdu",children:"اردو"}),s("option",{value:"Kannada",children:"کنڑا"}),s("option",{value:"English",children:"انگریزی"}),s("option",{value:"Maths",children:"ریاضی"}),s("option",{value:"EVS",children:"ای وی ایس"})]})]}),T("div",{className:"flex items-center gap-2",children:[s("label",{className:"whitespace-nowrap",children:"سال:"}),s("input",{value:i,onChange:(y)=>u(y.target.value),className:"filter-field",style:{width:"4cm"},placeholder:"2025-26"})]}),T("div",{className:"flex items-center gap-1.5 shrink-0",children:[s("label",{className:"whitespace-nowrap",children:"کل طلباء:"}),s("div",{className:"filter-total-box",style:{width:"3cm",minWidth:"54px",maxWidth:"90px"},children:xf})]})]})}),s("div",{className:"bg-white border-x border-[#0f5132] table-scroll-wrap w-full",style:{width:"100%",maxWidth:"100%"},children:T("table",{className:"border-collapse w-full text-[11px] cce-main-table",style:{tableLayout:"fixed",width:"calc(100% - 2cm)",margin:"0 1cm"},children:[T("colgroup",{children:[s("col",{className:"col-sno",style:{width:"40px"}}),s("col",{className:"col-name name-col",style:{width:"4.0cm"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-sem",style:{width:"52px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-marks",style:{width:"52px"}}),s("col",{className:"col-pct",style:{width:"48px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-sem",style:{width:"52px"}}),s("col",{className:"col-grade",style:{width:"46px"}}),s("col",{className:"col-total",style:{width:"58px"}}),s("col",{className:"col-total",style:{width:"58px"}})]}),T("thead",{children:[T("tr",{className:"text-center",children:[T("th",{rowSpan:2,className:"border border-[#0f5132] bg-white text-[#0f5132] col-sno",children:["نمبر",s("br",{}),"شمار"]}),s("th",{rowSpan:2,className:"border border-[#0f5132] bg-white text-[#0f5132] col-name name-col",children:"نام طالب علم"}),s("th",{colSpan:3,className:"border border-[#0f5132] fa-header",title:"FA formula = ROUND(FA/20*15,1)",children:"FA1"}),s("th",{colSpan:3,className:"border border-[#0f5132] fa-header",title:"FA formula = ROUND(FA/20*15,1)",children:"FA2"}),s("th",{colSpan:3,className:"border border-[#0f5132] sa-header",title:"SA formula = ROUND(SA/50*20,1)",children:"SA1"}),s("th",{colSpan:2,className:"border border-[#0f5132] sem-header",title:"SEM1 = FA1 15% + FA2 15% + SA1 20% (0-50)",children:"SEM 1"}),s("th",{colSpan:3,className:"border border-[#0f5132] fa-header",title:"FA formula = ROUND(FA/20*15,1)",children:"FA3"}),s("th",{colSpan:3,className:"border border-[#0f5132] fa-header",title:"FA formula = ROUND(FA/20*15,1)",children:"FA4"}),s("th",{colSpan:3,className:"border border-[#0f5132] sa-header",title:"SA formula = ROUND(SA/50*20,1)",children:"SA2"}),s("th",{colSpan:2,className:"border border-[#0f5132] sem-header",title:"SEM2 = FA3 15% + FA4 15% + SA2 20% (0-50)",children:"SEM 2"}),s("th",{colSpan:2,className:"border border-[#0f5132] total-header",title:"TOTAL = SEM1 + SEM2 (0-100)",children:"TOTAL"})]}),T("tr",{className:"text-center",children:[s("th",{className:"border border-[#0f5132] fa-sub-marks col-marks",title:"0-20",children:"مارکس"}),s("th",{className:"border border-[#0f5132] fa-sub-weight col-pct",title:"ROUND(FA1/20*15,1)",children:"15%"}),s("th",{className:"border border-[#0f5132] fa-sub-grade col-grade",title:"FA 20 grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] fa-sub-marks col-marks",title:"0-20",children:"مارکس"}),s("th",{className:"border border-[#0f5132] fa-sub-weight col-pct",title:"ROUND(FA2/20*15,1)",children:"15%"}),s("th",{className:"border border-[#0f5132] fa-sub-grade col-grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] sa-sub-marks col-marks",title:"0-50",children:"مارکس"}),s("th",{className:"border border-[#0f5132] sa-sub-weight col-pct",title:"ROUND(SA1/50*20,1)",children:"20%"}),s("th",{className:"border border-[#0f5132] sa-sub-grade col-grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] sem-sub-total col-sem",title:"FA1 15% + FA2 15% + SA1 20% = 0-50",children:"کل"}),s("th",{className:"border border-[#0f5132] sem-sub-grade col-grade",title:"SEM out of 50: >=45 A+, >=40 A, >=30 B+, >=20 B, else C",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] fa-sub-marks col-marks",title:"0-20",children:"مارکس"}),s("th",{className:"border border-[#0f5132] fa-sub-weight col-pct",title:"ROUND(FA3/20*15,1)",children:"15%"}),s("th",{className:"border border-[#0f5132] fa-sub-grade col-grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] fa-sub-marks col-marks",title:"0-20",children:"مارکس"}),s("th",{className:"border border-[#0f5132] fa-sub-weight col-pct",title:"ROUND(FA4/20*15,1)",children:"15%"}),s("th",{className:"border border-[#0f5132] fa-sub-grade col-grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] sa-sub-marks col-marks",title:"0-50",children:"مارکس"}),s("th",{className:"border border-[#0f5132] sa-sub-weight col-pct",title:"ROUND(SA2/50*20,1)",children:"20%"}),s("th",{className:"border border-[#0f5132] sa-sub-grade col-grade",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] sem-sub-total col-sem",title:"FA3 15% + FA4 15% + SA2 20% = 0-50",children:"کل"}),s("th",{className:"border border-[#0f5132] sem-sub-grade col-grade",title:"SEM out of 50: >=45 A+, >=40 A, >=30 B+, >=20 B, else C",children:"گریڈ"}),s("th",{className:"border border-[#0f5132] total-sub-total col-total",title:"SEM1 + SEM2 = 0-100",children:"کل 100"}),s("th",{className:"border border-[#0f5132] total-sub-grade col-total",title:"TOTAL out of 100: >=90 A+, >=80 A, >=60 B+, >=40 B, else C",children:"گریڈ"})]})]}),s("tbody",{children:a.map((y)=>{let P=Ie(y.fa1),K=Ie(y.fa2),R=Ie(y.sa1),$=Ie(y.fa3),Ke=Ie(y.fa4),J=Ie(y.sa2),ce=isNaN(P)?NaN:Oe(P),De=isNaN(K)?NaN:Oe(K),Me=isNaN(R)?NaN:Ft(R),Fe=isNaN($)?NaN:Oe($),Ue=isNaN(Ke)?NaN:Oe(Ke),xe=isNaN(J)?NaN:Ft(J),en=!isNaN(P)||!isNaN(K)||!isNaN(R),nn=!isNaN($)||!isNaN(Ke)||!isNaN(J),tn=en?ao(ce,De,Me):NaN,rn=nn?ao(Fe,Ue,xe):NaN,ln=en||nn?Fr((isNaN(tn)?0:tn)+(isNaN(rn)?0:rn)):NaN;return T("tr",{className:"group",children:[s("td",{className:"sl-cell col-sno",children:y.id}),s("td",{className:`name-cell p-0 col-name name-col ${D===`del-${y.id}`?"shake-cell":""}`,children:T("div",{className:"flex items-center gap-1 h-[32px] px-1 justify-center",style:{height:"32px"},children:[s("input",{value:y.name,onChange:(b)=>xt(y.id,"name",b.target.value),className:"name-input flex-1 h-[32px] px-1 min-w-0",style:{fontSize:"16px",fontWeight:800,height:"32px"}}),s("button",{onClick:()=>Mf(y.id),disabled:a.length<=1,className:"delete-btn shrink-0",children:"✕"})]})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-fa1`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:20,placeholder:"0-20",value:y.fa1,onChange:(b)=>tt(y.id,"fa1",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(ce)?hn(ce):""})}),s("td",{className:"grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(ce)?Bn(ce):""})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-fa2`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:20,placeholder:"0-20",value:y.fa2,onChange:(b)=>tt(y.id,"fa2",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(De)?hn(De):""})}),s("td",{className:"grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(De)?Bn(De):""})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-sa1`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:50,placeholder:"0-50",value:y.sa1,onChange:(b)=>tt(y.id,"sa1",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell sa-pct col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(Me)?hn(Me):""})}),s("td",{className:"grade-cell sa-grade col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(Me)?so(Me):""})}),s("td",{className:"sem-cell col-sem",children:s("div",{className:"sem-cell-inner",children:en?hn(tn):""})}),s("td",{className:"sem-grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:en?co(tn):""})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-fa3`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:20,placeholder:"0-20",value:y.fa3,onChange:(b)=>tt(y.id,"fa3",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(Fe)?hn(Fe):""})}),s("td",{className:"grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(Fe)?Bn(Fe):""})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-fa4`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:20,placeholder:"0-20",value:y.fa4,onChange:(b)=>tt(y.id,"fa4",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(Ue)?hn(Ue):""})}),s("td",{className:"grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(Ue)?Bn(Ue):""})}),s("td",{className:`marks-cell col-marks ${D===`${y.id}-sa2`?"shake-cell":""}`,children:s("input",{type:"number",min:0,max:50,placeholder:"0-50",value:y.sa2,onChange:(b)=>tt(y.id,"sa2",b.target.value),onKeyDown:rt,className:"marks-input"})}),s("td",{className:"pct-cell sa-pct col-pct",children:s("div",{className:"pct-cell-inner",children:!isNaN(xe)?hn(xe):""})}),s("td",{className:"grade-cell sa-grade col-grade",children:s("div",{className:"grade-cell-inner",children:!isNaN(xe)?so(xe):""})}),s("td",{className:"sem-cell col-sem",children:s("div",{className:"sem-cell-inner",children:nn?hn(rn):""})}),s("td",{className:"sem-grade-cell col-grade",children:s("div",{className:"grade-cell-inner",children:nn?co(rn):""})}),s("td",{className:"total-cell col-total",children:s("div",{className:"total-cell-inner",children:!isNaN(ln)?hn(ln):""})}),s("td",{className:"total-cell col-total",children:s("div",{className:"total-cell-inner total-grade-inner",children:!isNaN(ln)?Tf(ln):""})})]},y.id)})})]})}),s("div",{className:"buttons-bar bg-[#eeeeee] border-x border-b border-[#0f5132] px-3 py-3 no-print w-full",style:{marginBottom:"12px"},children:T("div",{dir:"rtl",className:"flex flex-wrap justify-center md:justify-start items-center gap-2 w-full",children:[T("button",{onClick:If,className:"h-[36px] min-h-[36px] px-4 text-[12px] font-bold rounded-[4px] flex items-center justify-center gap-1 shadow-sm border border-transparent",style:{backgroundColor:"#2e7d32",color:"#fff"},children:[s("span",{className:"text-[14px] leading-none",children:"+"})," طالب علم شامل کریں"]}),s("button",{onClick:Uf,className:"h-[36px] min-h-[36px] px-4 text-[12px] font-bold rounded-[4px] flex items-center justify-center gap-1 shadow-sm border border-transparent",style:{backgroundColor:"#fd7e14",color:"#fff"},children:"ایکسل میں محفوظ کریں"}),T("button",{onClick:Of,className:"h-[36px] min-h-[36px] px-4 text-[12px] font-bold rounded-[4px] flex items-center justify-center gap-1.5 shadow-sm border border-transparent",style:{backgroundColor:"#20c997",color:"#fff"},children:[s("span",{children:"\uD83D\uDD04"})," تمام نمبرات ری سیٹ کریں"]}),T("button",{id:"btnPrint",onClick:()=>{m("\uD83D\uDDA8️ پرنٹ ڈائیلاگ کھل رہا ہے..."),setTimeout(()=>m(""),3000);try{let y=String.fromCharCode(112,114,105,110,116);window[y]()}catch{}},style:{background:"#1976d2",color:"white",padding:"10px 24px",border:"none",borderRadius:"8px",fontWeight:900,fontSize:"15px",cursor:"pointer",boxShadow:"0 2px 6px rgba(0,0,0,0.2)"},children:[String.fromCodePoint(128424)," ",String.fromCharCode(80,114,105,110,116)]}),T("button",{id:"btnPdf",onClick:()=>{m("\uD83D\uDCC4 PDF کے طور پر محفوظ کریں - پرنٹ ڈائیلاگ"),setTimeout(()=>m(""),3000);try{let y=String.fromCharCode(112,114,105,110,116);window[y]()}catch{}},style:{background:"#0d47a1",color:"white",padding:"10px 24px",border:"none",borderRadius:"8px",fontWeight:900,fontSize:"15px",cursor:"pointer",boxShadow:"0 2px 6px rgba(0,0,0,0.2)"},children:[String.fromCodePoint(128196)," ",String.fromCharCode(83,97,118,101)," ",String.fromCharCode(97,115)," ",String.fromCharCode(80,68,70)]})]})}),T("div",{className:"grading-section no-print",children:[s("h2",{className:"grading-main-heading",children:"گریڈینگ چارٹ"}),T("div",{className:"grade-charts-container",children:[T("div",{className:"grade-box",children:[s("div",{className:"grade-box-header",children:"15% FA گریڈ"}),T("table",{children:[s("thead",{children:T("tr",{children:[s("th",{children:"مارکس"}),s("th",{children:"گریڈ"})]})}),s("tbody",{children:zm.map((y,P)=>T("tr",{children:[s("td",{children:y.marks}),s("td",{children:y.grade})]},P))})]})]}),T("div",{className:"grade-box",children:[s("div",{className:"grade-box-header",children:"20% SA گریڈ"}),T("table",{children:[s("thead",{children:T("tr",{children:[s("th",{children:"مارکس"}),s("th",{children:"گریڈ"})]})}),s("tbody",{children:Nm.map((y,P)=>T("tr",{children:[s("td",{children:y.marks}),s("td",{children:y.grade})]},P))})]})]}),T("div",{className:"grade-box",children:[s("div",{className:"grade-box-header",children:"50% FA گریڈ"}),T("table",{children:[s("thead",{children:T("tr",{children:[s("th",{children:"مارکس"}),s("th",{children:"گریڈ"})]})}),s("tbody",{children:Tm.map((y,P)=>T("tr",{children:[s("td",{children:y.marks}),s("td",{children:y.grade})]},P))})]})]}),T("div",{className:"grade-box",children:[s("div",{className:"grade-box-header",children:"100% کل گریڈ"}),T("table",{children:[s("thead",{children:T("tr",{children:[s("th",{children:"مارکس"}),s("th",{children:"گریڈ"})]})}),s("tbody",{children:Lm.map((y,P)=>T("tr",{children:[s("td",{children:y.marks}),s("td",{children:y.grade})]},P))})]})]})]})]}),s("div",{dir:"rtl",className:"footer-credit mt-3 w-full",children:"تخلیق کردہ: اشفاق احمد"})]})})]})}Rf.createRoot(document.getElementById("root")).render(s(Lf.default.StrictMode,{children:s(Uu,{})}));
 </script>
