@@ -506,14 +506,19 @@ Error generating stack: `+o.message+`
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
         }
-        /* === Round corner boxes in print - keep 6px radius, black border, white bg === */
-        .marks-input, input[type="text"], input[type="number"], .box-marks {
-          border-radius:6px !important;
+        /* === PRINT: Marks column boxes must be SQUARE (no round corners) === */
+        .marks-input, input.marks-box, td.col-marks input, td.marks-cell input,
+        input[type="text"], input[type="number"], .box-marks {
+          border-radius:0 !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           border:1.5px solid #212121 !important;
           background:#ffffff !important;
           box-shadow:none !important;
+        }
+        /* Extra explicit square override for marks column per request */
+        .marks-input, input.marks-box, td.col-marks input, td.marks-cell input {
+          border-radius:0 !important;
         }
         td.marks-cell {
           background:#fff !important;
